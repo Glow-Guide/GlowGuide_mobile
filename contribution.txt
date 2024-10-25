@@ -1,0 +1,6 @@
+Kontribusi minggu 9 (tugas Upload video yt Demonstrasi)
+- Brilyan(05): Figma + Custom widgets, routing main, Fungsi Camera, face analysis, history page, welcome page, splash screen
+- Firstia(11): Figma + Home page flutter
+- Farrel (12): Figma + Profile page, login page flutter
+- Trio (14): Figa + register page, Flutter
+
