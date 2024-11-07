@@ -13,8 +13,8 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              margin: EdgeInsets.all(16),
+             Container(
+              margin:EdgeInsets.all(16),
               color: const Color.fromARGB(255, 214, 204, 166),
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               child: Column(
