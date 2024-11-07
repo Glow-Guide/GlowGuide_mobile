@@ -33,6 +33,56 @@ class CameraPageState extends State<CameraPage> {
 
     // Next, initialize the controller. This returns a Future.
     _initializeControllerFuture = _controller.initialize();
+
+    // Show the instruction dialog when the page is loaded.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showInstructionDialog();
+    });
+  }
+
+  Future<void> _showInstructionDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // User must tap a button to dismiss the dialog
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Face the Camera'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children:  <Widget>[
+                Text('Please make sure your face is clearly visible.'),
+                Text('Tap "OK" when you are ready to take the photo.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _takePicture() async {
+    try {
+      await _initializeControllerFuture;
+      final image = await _controller.takePicture();
+      if (!context.mounted) return;
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => DisplayPicturePage(
+            imagePath: image.path,
+          ),
+        ),
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -45,7 +95,7 @@ class CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Take a picture - 2241720019')),
+      appBar: AppBar(title: const Text('Take a picture')),
       body: Column(
         children: [
           Expanded(
@@ -66,27 +116,12 @@ class CameraPageState extends State<CameraPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               FloatingActionButton(
-                onPressed: () async {
-                  try {
-                    await _initializeControllerFuture;
-                    final image = await _controller.takePicture();
-                    if (!context.mounted) return;
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => DisplayPicturePage(
-                          imagePath: image.path,
-                        ),
-                      ),
-                    );
-                  } catch (e) {
-                    print(e);
-                  }
-                },
+                onPressed: _takePicture,
                 child: const Icon(Icons.camera_alt),
               ),
               FloatingActionButton(
                 onPressed: () {
-                  // Add another button action here if needed
+                  Navigator.pushReplacementNamed(context, '/home');
                 },
                 child: const Icon(Icons.cancel),
               ),
