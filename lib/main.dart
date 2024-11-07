@@ -12,16 +12,22 @@ import 'pages/register_page.dart';
 import 'pages/home_page.dart';
 import 'package:page_transition/page_transition.dart';
 import 'pages/error_page.dart';
+import 'package:camera/camera.dart';
 
-void main() async {
+Future<void> main() async {
   // Initialize the date formatting for the current locale
   await initializeDateFormatting();
+  WidgetsFlutterBinding.ensureInitialized();
+  final cameras = await availableCameras();
+  final firstCamera = cameras[1];
 
-  runApp(const MyApp());
+  runApp(MyApp(firstCamera: firstCamera));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final CameraDescription firstCamera;
+
+  const MyApp({super.key, required this.firstCamera});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +80,7 @@ class MyApp extends StatelessWidget {
             );
           case '/camera':
             return PageTransition(
-              child:  CameraPage(),
+              child: CameraPage(camera: firstCamera,),
               type: PageTransitionType.fade,
               settings: settings,
             );

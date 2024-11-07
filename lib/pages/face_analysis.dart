@@ -25,15 +25,15 @@ class FaceAnalysisPage extends StatelessWidget {
               width: double.infinity,
               fit: BoxFit.cover,
             ),
-            SizedBox(height: 20),
+           const SizedBox(height: 20),
             // Text for Face Diagnosis
-            Text(
+            const Text(
               'Face Diagnosis',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             // Text for Face Problem
-            Text(
+            const Text(
               'Face Problem',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
             ),
