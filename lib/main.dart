@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart'; // Import for date formatting initialization
 import 'package:prototpye_glowguide/pages/camera_page.dart';
@@ -15,9 +16,9 @@ import 'pages/error_page.dart';
 import 'package:camera/camera.dart';
 
 Future<void> main() async {
-  // Initialize the date formatting for the current locale
-  await initializeDateFormatting();
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting();
+  await Firebase.initializeApp();
   final cameras = await availableCameras();
   final firstCamera = cameras[1];
 
