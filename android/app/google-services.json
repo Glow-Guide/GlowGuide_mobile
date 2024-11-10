@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "783659071557",
+    "project_id": "glowguide-426bc",
+    "storage_bucket": "glowguide-426bc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783659071557:android:a80d45847f2a3626d90b2c",
+        "android_client_info": {
+          "package_name": "com.example.prototpye_glowguide"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR50a6KSJMIIjYwgiSM7HQGE4cEXGS-yk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783659071557:android:8342c5c915316297d90b2c",
+        "android_client_info": {
+          "package_name": "com.example.prototype_glowguide"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR50a6KSJMIIjYwgiSM7HQGE4cEXGS-yk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
