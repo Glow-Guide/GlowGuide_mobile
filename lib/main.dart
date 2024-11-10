@@ -14,11 +14,12 @@ import 'pages/home_page.dart';
 import 'package:page_transition/page_transition.dart';
 import 'pages/error_page.dart';
 import 'package:camera/camera.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final cameras = await availableCameras();
   final firstCamera = cameras[1];
 
@@ -81,7 +82,9 @@ class MyApp extends StatelessWidget {
             );
           case '/camera':
             return PageTransition(
-              child: CameraPage(camera: firstCamera,),
+              child: CameraPage(
+                camera: firstCamera,
+              ),
               type: PageTransitionType.fade,
               settings: settings,
             );
