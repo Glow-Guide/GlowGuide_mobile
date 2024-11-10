@@ -85,7 +85,7 @@ class _RegisterPageState extends State<RegisterPage> {
       } else if (e.code == 'invalid-email') {
         message = 'The email address is not valid.';
       } else {
-        message = 'An error occurred. Please try again.';
+        message = e.code;
       }
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(message)));
