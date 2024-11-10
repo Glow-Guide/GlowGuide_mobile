@@ -15,6 +15,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   File? _imageFile;
+  String? _selectedGender;
+
   Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: source);
@@ -114,6 +116,34 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             const CustomDatePicker(
               labelText: "Date of Birth",
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Radio<String>(
+                  value: 'Male',
+                  groupValue: _selectedGender,
+                  onChanged: (String? value) {
+                    setState(() {
+                      _selectedGender = value;
+                    });
+                  },
+                ),
+                const Text('Male'),
+                Radio<String>(
+                  value: 'Female',
+                  groupValue: _selectedGender,
+                  onChanged: (String? value) {
+                    setState(() {
+                      _selectedGender = value;
+                    });
+                  },
+                ),
+                const Text('Female'),
+              ],
             ),
             const Spacer(),
             Padding(
