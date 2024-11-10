@@ -5,7 +5,6 @@ import 'package:prototpye_glowguide/pages/camera_page.dart';
 import 'package:prototpye_glowguide/pages/forgot_password.dart';
 import 'package:prototpye_glowguide/pages/history_page.dart';
 import 'package:prototpye_glowguide/pages/profile_page.dart';
-import 'package:prototpye_glowguide/pages/register_gender.dart';
 import 'pages/splash_screen.dart';
 import 'pages/welcome_page.dart';
 import 'pages/login_page.dart';
@@ -19,7 +18,12 @@ import 'firebase_options.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  try {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+  } catch (e) {
+    print("Firebase initialization error: $e");
+  }
   final cameras = await availableCameras();
   final firstCamera = cameras[1];
 
@@ -88,12 +92,7 @@ class MyApp extends StatelessWidget {
               type: PageTransitionType.fade,
               settings: settings,
             );
-          case '/gender':
-            return PageTransition(
-              child: RegisterGender(),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
+
           case '/forgot':
             return PageTransition(
               child: ForgotPassword(),
