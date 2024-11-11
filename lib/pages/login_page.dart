@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:prototpye_glowguide/widgets/custom_textfield.dart';
 import 'package:prototpye_glowguide/widgets/wavyappbar.dart';
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -22,10 +21,14 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final response = await Supabase.instance.client.auth.signInWithPassword(
         email: emailController.text,
         password: passwordController.text,
       );
+
+      if (response.session == null || response.user == null) {
+        throw Exception('Login failed');
+      }
 
       // Navigate to home page
       Navigator.pushNamedAndRemoveUntil(
@@ -33,21 +36,9 @@ class _LoginPageState extends State<LoginPage> {
         '/home',
         (Route<dynamic> route) => false,
       );
-    } on FirebaseAuthException catch (e) {
-      String message;
-      if (e.code == 'user-not-found') {
-        message = 'No user found for that email.';
-      } else if (e.code == 'wrong-password') {
-        message = 'Wrong password provided.';
-      } else if (e.code == 'invalid-email') {
-        message = 'The email address is not valid.';
-      } else {
-        message = e.message ?? 'An error occurred. Please try again.';
-      }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('An unexpected error occurred. Please try again.')));
+          content: Text('An error occurred. Please try again.')));
       print('Error: $e');
     } finally {
       setState(() {

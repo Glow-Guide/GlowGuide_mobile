@@ -1,6 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart'; // Import for date formatting initialization
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:prototpye_glowguide/pages/camera_page.dart';
 import 'package:prototpye_glowguide/pages/forgot_password.dart';
 import 'package:prototpye_glowguide/pages/history_page.dart';
@@ -13,17 +12,16 @@ import 'pages/home_page.dart';
 import 'package:page_transition/page_transition.dart';
 import 'pages/error_page.dart';
 import 'package:camera/camera.dart';
-import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeDateFormatting();
-  try {
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
-  } catch (e) {
-    print("Firebase initialization error: $e");
-  }
+
+  // Initialize Supabase
+  await Supabase.initialize(
+    url: 'https://udzgbtgbansqcholjbaw.supabase.co', // Replace with your Supabase URL
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkemdidGdiYW5zcWNob2xqYmF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzEzMzk3ODEsImV4cCI6MjA0NjkxNTc4MX0._TScne0jFz-j-2zWHny6EWpPIzY-EheFE2I2ERp5s64', // Replace with your Supabase anon key
+  );
+
   final cameras = await availableCameras();
   final firstCamera = cameras[1];
 
@@ -95,7 +93,7 @@ class MyApp extends StatelessWidget {
 
           case '/forgot':
             return PageTransition(
-              child: ForgotPassword(),
+              child: const ForgotPassword(),
               type: PageTransitionType.fade,
               settings: settings,
             );
