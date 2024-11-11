@@ -43,23 +43,34 @@ class _RegisterPageState extends State<RegisterPage> {
         password: passwordController.text,
         data: {
           'username': usernameController.text,
-           'gender': _selectedGender,
+          'gender': _selectedGender,
           'birth_date': birthDateController.text,
-        }
+        },
       );
 
       if (response.user == null) {
         throw Exception('Registration failed');
       }
 
+      // Save additional user information to Supabase
+      final userId = response.user!.id;
+      final userResponse = await Supabase.instance.client.from('users').insert({
+        'id': userId,
+        'email': emailController.text,
+        'username': usernameController.text,
+        'gender': _selectedGender,
+        'birth_date': birthDateController.text,
+      });
+
+      if (userResponse == null) {
+        throw userResponse?.error ?? Exception('User response is null');
+      }
+
       // Navigate to home page
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 7),
-          content: Text('Succesfully registered! Please check your email for verification.')));
       Navigator.pushReplacementNamed(context, '/login');
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('An error occurred. Please try again.')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('An error occurred. Please try again.')));
       print('Error: $e');
     } finally {
       setState(() {

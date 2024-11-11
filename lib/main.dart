@@ -12,10 +12,10 @@ import 'pages/home_page.dart';
 import 'package:page_transition/page_transition.dart';
 import 'pages/error_page.dart';
 import 'package:camera/camera.dart';
-
+import 'package:intl/date_symbol_data_local.dart'; // Import for date formatting initialization
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await initializeDateFormatting();
   // Initialize Supabase
   await Supabase.initialize(
     url: 'https://udzgbtgbansqcholjbaw.supabase.co', // Replace with your Supabase URL
