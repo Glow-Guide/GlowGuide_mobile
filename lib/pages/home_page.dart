@@ -1,23 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:prototpye_glowguide/widgets/wavyappbar.dart';
 import 'package:prototpye_glowguide/widgets/custom_navbar.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String? username;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUsername();
+  }
+
+  Future<void> _fetchUsername() async {
+    final supabase = Supabase.instance.client;
+    final response = await supabase
+        .from('users') 
+        .select('username');
+
+    setState(() {
+      if (response.isNotEmpty) {
+        username = response[0]['username'] as String?;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WavyAppbar(),
       bottomNavigationBar: const CustomNavbar(currentIndex: 0),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            content(),
-            content(),
-            content(),
-            content(),
-            content(),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                textAlign: TextAlign.start,
+                'Hello, ${username ?? 'Guest'}! welcome to GlowGuide',
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -25,10 +58,12 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class content extends StatelessWidget {
-  const content({
-    super.key,
-  });
+class Content extends StatelessWidget {
+  final String text;
+  final String titleText;
+  final ImageProvider image;
+
+  const Content({super.key, required this.text, required this.image, required this.titleText});
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +78,9 @@ class content extends StatelessWidget {
         width: double.infinity,
         child: Column(
           children: [
-            const Text(
-              "lorem ipsum dolor sit amet",
-              style: TextStyle(fontWeight: FontWeight.bold),
+            Text(
+              text,
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(
               height: 20,
@@ -54,9 +89,9 @@ class content extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Flexible(
+                Flexible(
                   child: Text(
-                    "lorem ipsum dolor sit amet",
+                    text,
                     softWrap: true,
                   ),
                 ),
@@ -64,7 +99,13 @@ class content extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      color: Colors.white,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        image: DecorationImage(
+                          image: image,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                       height: 100,
                     ),
                   ),
