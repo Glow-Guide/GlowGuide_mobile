@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> _fetchUsername() async {
     final supabase = Supabase.instance.client;
     final response = await supabase
-        .from('users') // replace with your actual table name if different
+        .from('users') 
         .select('username');
 
     setState(() {
@@ -51,11 +51,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const content(),
-            const content(),
-            const content(),
-            const content(),
-            const content(),
           ],
         ),
       ),
@@ -63,8 +58,12 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class content extends StatelessWidget {
-  const content({super.key});
+class Content extends StatelessWidget {
+  final String text;
+  final String titleText;
+  final ImageProvider image;
+
+  const Content({super.key, required this.text, required this.image, required this.titleText});
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +78,9 @@ class content extends StatelessWidget {
         width: double.infinity,
         child: Column(
           children: [
-            const Text(
-              "lorem ipsum dolor sit amet",
-              style: TextStyle(fontWeight: FontWeight.bold),
+            Text(
+              text,
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(
               height: 20,
@@ -90,9 +89,9 @@ class content extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Flexible(
+                Flexible(
                   child: Text(
-                    "lorem ipsum dolor sit amet",
+                    text,
                     softWrap: true,
                   ),
                 ),
@@ -100,7 +99,13 @@ class content extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      color: Colors.white,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        image: DecorationImage(
+                          image: image,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                       height: 100,
                     ),
                   ),

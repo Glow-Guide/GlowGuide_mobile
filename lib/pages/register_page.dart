@@ -62,15 +62,13 @@ class _RegisterPageState extends State<RegisterPage> {
         'birth_date': birthDateController.text,
       });
 
-      if (userResponse == null) {
-        throw userResponse?.error ?? Exception('User response is null');
-      }
+   
 
       // Navigate to home page
       Navigator.pushReplacementNamed(context, '/login');
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('An error occurred. Please try again.')));
+          SnackBar(content: Text('An error occurred. Please try again. $e')));
       print('Error: $e');
     } finally {
       setState(() {

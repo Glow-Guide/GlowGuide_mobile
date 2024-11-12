@@ -9,14 +9,17 @@ class DisplayPicturePage extends StatelessWidget {
   final String imagePath;
 
   const DisplayPicturePage({super.key, required this.imagePath});
-
   Future<void> _uploadPicture(BuildContext context) async {
     try {
+        final response = await supabase
+        .from('users') 
+        .select('username');
       final file = File(imagePath);
-
+      final username = response[0]['username'] as String;
       // Upload picture to Supabase storage
       final String fullPath = await supabase.storage.from('images').upload(
-          'images/${DateTime.now().millisecondsSinceEpoch}.jpg', file,
+          'images/${username}_${DateTime.now().toString().replaceAll(RegExp(r'[:\-\. ]'), '')}.jpg', //only date, hour, minute and second
+          file,
           fileOptions: const FileOptions(cacheControl: '3600', upsert: false));
 
       // Navigate to FaceAnalysisPage after successful upload
