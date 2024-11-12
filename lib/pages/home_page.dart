@@ -1,23 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:prototpye_glowguide/widgets/wavyappbar.dart';
 import 'package:prototpye_glowguide/widgets/custom_navbar.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String? username;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUsername();
+  }
+
+  Future<void> _fetchUsername() async {
+    final supabase = Supabase.instance.client;
+    final response = await supabase
+        .from('users') // replace with your actual table name if different
+        .select('username');
+
+    setState(() {
+      if (response.isNotEmpty) {
+        username = response[0]['username'] as String?;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WavyAppbar(),
       bottomNavigationBar: const CustomNavbar(currentIndex: 0),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            content(),
-            content(),
-            content(),
-            content(),
-            content(),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                textAlign: TextAlign.start,
+                'Hello, ${username ?? 'Guest'}! welcome to GlowGuide',
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const content(),
+            const content(),
+            const content(),
+            const content(),
+            const content(),
           ],
         ),
       ),
@@ -26,9 +64,7 @@ class HomePage extends StatelessWidget {
 }
 
 class content extends StatelessWidget {
-  const content({
-    super.key,
-  });
+  const content({super.key});
 
   @override
   Widget build(BuildContext context) {

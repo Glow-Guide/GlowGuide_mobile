@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
             );
           case '/home':
             return PageTransition(
-              child: const HomePage(),
+              child:  HomePage(),
               type: PageTransitionType.fade,
               settings: settings,
             );
