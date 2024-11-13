@@ -24,7 +24,6 @@ Future<void> main() async {
 
   final cameras = await availableCameras();
   final firstCamera = cameras[1];
-
   runApp(MyApp(firstCamera: firstCamera));
 }
 
@@ -37,6 +36,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'GlowGuide',
+      debugShowCheckedModeBanner: false,
       initialRoute: '/',
       onGenerateRoute: (settings) {
         switch (settings.name) {
