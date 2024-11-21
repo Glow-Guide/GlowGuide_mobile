@@ -1,39 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
-import 'displaypicture_page.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:prototpye_glowguide/pages/views/displaypage_view.dart';
 
 // A screen that allows users to take a picture using a given camera.
 class CameraPage extends StatefulWidget {
-  const CameraPage({
-    super.key,
-    required this.camera,
-  });
-
-  final CameraDescription camera;
+  CameraPage({super.key});
 
   @override
   CameraPageState createState() => CameraPageState();
 }
 
 class CameraPageState extends State<CameraPage> {
-  late CameraController _controller;
-  late Future<void> _initializeControllerFuture;
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
     super.initState();
-    // To display the current output from the Camera,
-    // create a CameraController.
-    _controller = CameraController(
-      // Get a specific camera from the list of available cameras.
-      widget.camera,
-      // Define the resolution to use.
-      ResolutionPreset.medium,
-    );
-
-    // Next, initialize the controller. This returns a Future.
-    _initializeControllerFuture = _controller.initialize();
-
     // Show the instruction dialog when the page is loaded.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showInstructionDialog();
@@ -49,7 +31,7 @@ class CameraPageState extends State<CameraPage> {
           title: const Text('Face the Camera'),
           content: const SingleChildScrollView(
             child: ListBody(
-              children:  <Widget>[
+              children: <Widget>[
                 Text('Please make sure your face is clearly visible.'),
                 Text('Tap "OK" when you are ready to take the photo.'),
               ],
@@ -70,26 +52,22 @@ class CameraPageState extends State<CameraPage> {
 
   Future<void> _takePicture() async {
     try {
-      await _initializeControllerFuture;
-      final image = await _controller.takePicture();
-      if (!context.mounted) return;
-      await Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => DisplayPicturePage(
-            imagePath: image.path,
-          ),
-        ),
+      final XFile? image = await _picker.pickImage(source: ImageSource.camera,
+      preferredCameraDevice: CameraDevice.front,
+      imageQuality: 20
       );
+      if (image != null && mounted) {
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => DisplayPicturePage(
+              imagePath: image.path,
+            ),
+          ),
+        );
+      }
     } catch (e) {
       print(e);
     }
-  }
-
-  @override
-  void dispose() {
-    // Dispose of the controller when the widget is disposed.
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
@@ -98,18 +76,9 @@ class CameraPageState extends State<CameraPage> {
       appBar: AppBar(title: const Text('Take a picture')),
       body: Column(
         children: [
-          Expanded(
-            child: FutureBuilder<void>(
-              future: _initializeControllerFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  // If the Future is complete, display the preview.
-                  return CameraPreview(_controller);
-                } else {
-                  // Otherwise, display a loading indicator.
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
+         const  Expanded(
+            child: Center(
+              child:  Text('Tap the camera button to take a picture'),
             ),
           ),
           Row(
