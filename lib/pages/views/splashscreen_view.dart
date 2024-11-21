@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'welcome_page.dart';
+import '../views/welcomepage_view.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class SplashScreen extends StatefulWidget {
