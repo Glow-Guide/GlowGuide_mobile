@@ -29,7 +29,7 @@ class WelcomePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Text('GlowGuide',
                     style:
-                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(
                 height: 20,
@@ -37,7 +37,7 @@ class WelcomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TypeWriter.text(
-                  'Est enim irure aute elit quis labore eiusmod in cillum. Minim pariatur id elit id dolor commodo irure in officia esse. Non occaecat reprehenderit minim ullamco non incididunt.',
+                  'Welcome to a world of beauty filled with inspiration! Explore tips and discover the best products to celebrate your beauty every day and uncover your true charm!',
                   duration: const Duration(milliseconds: 50),
                   style:
                       const TextStyle(color: Color.fromARGB(219, 95, 42, 42)),

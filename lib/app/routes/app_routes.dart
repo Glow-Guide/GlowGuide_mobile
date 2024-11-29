@@ -9,4 +9,5 @@ class AppRoutes {
   static const camera = '/camera';
   static const forgotPassword = '/forgot';
   static const error = '/error';
+  static const contentdetails = '/contentdetails';
 }
