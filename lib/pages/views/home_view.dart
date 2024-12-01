@@ -31,33 +31,36 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-           
-            Center(
+            const Center(
               child: HoverContent(
                 titleText: 'What is GlowGuide?',
-                text: 'The Glow Guide application offers an innovative solution for modern users facing challenges in identifying their acne types and determining the right skincare products. Utilizing image processing technology, it enables users to detect their skin and acne types through facial photos and provides tailored skincare recommendations. Glow Guide aims to simplify skin care, reduce the risk of issues from incorrect product choices, and deliver accessible guidance via smartphone, all without high costs or the need for in-person consultations.',
-                image: const AssetImage('lib/assets/splash.png'),
+                description:
+                    'The Glow Guide application offers an innovative solution for modern users facing challenges in identifying their acne types and determining the right skincare products. Utilizing image processing technology, it enables users to detect their skin and acne types through facial photos and provides tailored skincare recommendations. Glow Guide aims to simplify skin care, reduce the risk of issues from incorrect product choices, and deliver accessible guidance via smartphone, all without high costs or the need for in-person consultations.',
+                image: AssetImage('lib/assets/splash.png'),
               ),
             ),
-            Center(
+            const Center(
               child: HoverContent(
+                description:
+                    'To overcome this problem, it is important to do the right care. Use products that suit your skin type, such as gentle cleansers, exfoliators, and non-comedogenic moisturizers. Also, maintain a healthy diet by consuming lots of vegetables, fruits, and water.',
                 titleText: 'Want acne-free skin?',
-                text: 'To overcome this problem, it is important to do the right care. Use products that suit your skin type, such as gentle cleansers, exfoliators, and non-comedogenic moisturizers. Also, maintain a healthy diet by consuming lots of vegetables, fruits, and water.',
-                image: const AssetImage('lib/assets/acne.jpg'),
+                image: AssetImage('lib/assets/acne.jpg'),
               ),
             ),
-            Center(
+            const Center(
               child: HoverContent(
+                description:
+                    'To keep your skin healthy and problem-free, it is important to understand your skin type. Regularly cleansing your face is a crucial first step, followed by diligently exfoliating to remove dead skin cells. Consuming tomatoes is also very beneficial, because it is rich in antioxidants that help maintain healthy skin. In addition, controlling water levels in the body is very important, so exercising and getting enough rest must also be considered. Finally, choosing the right product according to your skin type can be done with the help of the GlowGuide application, which helps find the right product.',
                 titleText: 'Discover the secret to smooth, acne-free skin!',
-                text: 'To keep your skin healthy and problem-free, it is important to understand your skin type. Regularly cleansing your face is a crucial first step, followed by diligently exfoliating to remove dead skin cells. Consuming tomatoes is also very beneficial, because it is rich in antioxidants that help maintain healthy skin. In addition, controlling water levels in the body is very important, so exercising and getting enough rest must also be considered. Finally, choosing the right product according to your skin type can be done with the help of the GlowGuide application, which helps find the right product.',
-                image: const AssetImage('lib/assets/smooth.jpg'),
+                image: AssetImage('lib/assets/smooth.jpg'),
               ),
             ),
-            Center(
+            const Center(
               child: HoverContent(
+                description:
+                    'Treating acne effectively requires a combination of the right treatments and healthy habits. First, make sure to wash your face twice a day with a gentle cleanser that’s right for your skin type, so dirt and oil don’t clog your pores. Use products that contain active ingredients like benzoyl peroxide or salicylic acid to help reduce inflammation and prevent breakouts.',
                 titleText: 'Effective way to deal with acne!',
-                text: 'Treating acne effectively requires a combination of the right treatments and healthy habits. First, make sure to wash your face twice a day with a gentle cleanser that’s right for your skin type, so dirt and oil don’t clog your pores. Use products that contain active ingredients like benzoyl peroxide or salicylic acid to help reduce inflammation and prevent breakouts.',
-                image: const AssetImage('lib/assets/product.jpg'),
+                image: AssetImage('lib/assets/product.jpg'),
               ),
             ),
           ],
@@ -68,22 +71,23 @@ class HomePage extends StatelessWidget {
 }
 
 class HoverContent extends StatefulWidget {
-  final String text;
   final String titleText;
   final ImageProvider image;
+  final String description;
 
   const HoverContent({
-    Key? key,
-    required this.text,
-    required this.image,
+    super.key,
     required this.titleText,
-  }) : super(key: key);
+    required this.image,
+    required this.description,
+  });
 
   @override
   _HoverContentState createState() => _HoverContentState();
 }
 
-class _HoverContentState extends State<HoverContent> with SingleTickerProviderStateMixin {
+class _HoverContentState extends State<HoverContent>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
   bool _isHovered = false;
@@ -123,49 +127,51 @@ class _HoverContentState extends State<HoverContent> with SingleTickerProviderSt
         scale: _animation,
         child: GestureDetector(
           onTap: () {
-            // Navigasi ke halaman detail
+            // Navigate to the detailed content page
             Get.to(
-              () => ContentDetailsPage(),
+              () => const ContentDetailsPage(),
               arguments: {
                 'title': widget.titleText,
-                'description': widget.text,
                 'image': widget.image,
+                'description': widget.description,
               },
               transition: Transition.fadeIn,
             );
           },
           child: Padding(
-            padding: const EdgeInsets.all(5.0), 
+            padding: const EdgeInsets.all(5.0),
             child: Container(
               decoration: BoxDecoration(
                 color: const Color.fromRGBO(219, 205, 197, 0.74),
                 borderRadius: BorderRadius.circular(20),
               ),
-              height: 150, 
-              width: MediaQuery.of(context).size.width * 0.9, 
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5), 
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center, 
-                  mainAxisAlignment: MainAxisAlignment.center, 
-                  children: [
-                    Text(
-                      widget.titleText,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15, // font judul
-                      ),
-                      textAlign: TextAlign.center, 
+              height: Get.width * 0.45,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.titleText,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15, // font size for title
                     ),
-                    const SizedBox(height: 10), // jarak antara judul dan teks
-                    Text(
-                      widget.text,
-                      style: const TextStyle(
-                        fontSize: 10, // font teks
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 10), // space between title and image
+                  Container(
+                    height: Get.width * 0.3,
+                    width: Get.width * 0.5,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: widget.image,
+                        fit: BoxFit.cover,
                       ),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
