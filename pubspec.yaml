@@ -66,6 +66,10 @@ flutter:
   assets:
     - lib/assets/splash.png
     - lib/assets/welcome.jpg
+    - lib/assets/acne.jpg
+    - lib/assets/smooth.jpg
+    - lib/assets/product.jpg
+    
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

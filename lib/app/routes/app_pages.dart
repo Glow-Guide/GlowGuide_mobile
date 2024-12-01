@@ -10,6 +10,7 @@ import '../../pages/views/profilepage_view.dart';
 import '../../pages/views/camerapage.dart';
 import '../../pages/views/forgotpassword_view.dart';
 import '../../pages/views/errorpage.dart';
+import '../../pages/views/contentdetails_view.dart';
 import 'package:camera/camera.dart';
 import '../../pages/bindings/home_binding.dart';
 import '../../pages/bindings/login_binding.dart';
@@ -79,6 +80,11 @@ class AppPages {
       name: AppRoutes.error,
       page: () => const ErrorPage(),
       transition: Transition.fade,
+    ),
+    GetPage(
+      name: AppRoutes.contentdetails,
+      page: () => const ContentDetailsPage(), // Halaman detail konten
+      transition: Transition.rightToLeft,
     ),
   ];
 }
