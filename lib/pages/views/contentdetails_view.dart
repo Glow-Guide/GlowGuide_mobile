@@ -6,13 +6,13 @@ class ContentDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Ambil data dari arguments
+    // Retrieve data from arguments
     final arguments = Get.arguments as Map<String, dynamic>?;
-    
-    // Mengambil parameter dengan aman
+
+    // Safely retrieve parameters
     final title = arguments?['title'] as String? ?? 'No Title';
     final description = arguments?['description'] as String? ?? 'No Description';
-    final image = arguments?['image'] as ImageProvider? ?? AssetImage('lib/assets/default_image.png');
+    final image = arguments?['image'] as ImageProvider? ?? const AssetImage('lib/assets/default_image.png');
 
     return Scaffold(
       appBar: AppBar(
