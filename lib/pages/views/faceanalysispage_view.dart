@@ -36,11 +36,27 @@ class FaceAnalysisPage extends StatelessWidget {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            // Face Problem Section
-            const Text(
-              'Face Problem',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
-            ),
+            Obx(() {
+              return controller.predictionLabel.isEmpty
+                  ? const CircularProgressIndicator() // Show loading spinner while fetching results
+                  : Column(
+                      children: [
+                        Text(
+                          'Prediction: ${controller.predictionLabel.value}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        Text(
+                          'Confidence: ${controller.predictionConfidence.value}%',
+                          style: const TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    );
+            }),
           ],
         ),
       ),
