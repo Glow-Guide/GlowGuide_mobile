@@ -61,8 +61,13 @@ class RegisterController extends GetxController {
       // Navigate to login page
       Get.offAllNamed('/login');
     } catch (e) {
-      Get.snackbar('Error', 'An error occurred. Please try again.\n$e',
-          snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar(
+        'Register failed with error ',
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     } finally {
       isLoading.value = false;
     }

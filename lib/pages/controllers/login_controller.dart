@@ -26,9 +26,12 @@ class LoginController extends GetxController {
       Get.offAllNamed('/home');
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'An error occurred. Please try again.',
+        'Login failed with error ',
+        e.toString(),
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      
       );
     } finally {
       isLoading.value = false;
