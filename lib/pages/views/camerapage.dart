@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prototpye_glowguide/pages/views/displaypage_view.dart';
-
+import 'package:prototpye_glowguide/widgets/wavyappbar.dart';
+import 'package:prototpye_glowguide/widgets/custom_navbar.dart';
 // A screen that allows users to take a picture using a given camera.
 class CameraPage extends StatefulWidget {
   CameraPage({super.key});
@@ -73,7 +74,8 @@ class CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Take a picture')),
+      appBar:WavyAppbar(),
+      bottomNavigationBar:CustomNavbar(currentIndex: 2) ,
       body: Column(
         children: [
          const  Expanded(
