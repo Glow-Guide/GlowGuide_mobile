@@ -21,7 +21,7 @@ class FaceAnalysisController extends GetxController {
 
   Future<void> getPrediction() async {
     try {
-      final url = 'http://flask-server/upload';
+    final url = 'https://wgxz3g9l-5000.asse.devtunnels.ms/upload';
 
       // Read the file to send it in the POST request
       final file = File(imagePath);
