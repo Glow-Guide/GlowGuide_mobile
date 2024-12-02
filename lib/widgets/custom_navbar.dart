@@ -1,4 +1,6 @@
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 
 class CustomNavbar extends StatefulWidget {
   final int currentIndex;
@@ -28,29 +30,17 @@ class _CustomNavbarState extends State<CustomNavbar> {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      selectedItemColor: Colors.black,
-      unselectedItemColor: Colors.grey,
+    return CurvedNavigationBar(
+      backgroundColor: const Color.fromRGBO(161, 140, 90, 1.0), // RGB equivalent of Color(0xFFA18C5A)
       onTap: onTabTapped,
-      currentIndex: widget.currentIndex,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.history),
-          label: 'History',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.camera_alt),
-          label: 'Camera',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
+index: widget.currentIndex,
+      items:const  [
+        CurvedNavigationBarItem(child: Icon(Icons.home), label: 'Home',),
+        CurvedNavigationBarItem(child: Icon(Icons.history), label: 'History',),
+        CurvedNavigationBarItem(child: Icon(Icons.camera_alt), label: 'Camera',),
+        CurvedNavigationBarItem(child: Icon(Icons.person), label: 'Profile',),
       ],
+     
     );
   }
 }
