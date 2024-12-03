@@ -30,11 +30,7 @@ class RegisterPage extends StatelessWidget {
               Container(
                 width: screenWidth * 0.4,
                 height: screenHeight * 0.4,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.grey,
-                  border: Border.all(color: Colors.black, width: 2),
-                ),
+                child: const Image(image: AssetImage('lib/assets/splash.png')),
               ),
               CustomTextField(
                 labelText: "Email",
