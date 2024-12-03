@@ -10,12 +10,10 @@ class HomeController extends GetxController {
     fetchUsername();
   }
 
-  Future<void> fetchUsername() async {
-    final supabase = Supabase.instance.client;
-    final response = await supabase.from('users').select('username');
-
-    if (response.isNotEmpty) {
-      username.value = response[0]['username'] as String? ?? '';
+   void fetchUsername() {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      username.value = user.userMetadata?['username'] ?? 'User';
     }
   }
 }
