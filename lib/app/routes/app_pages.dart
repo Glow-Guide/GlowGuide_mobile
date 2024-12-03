@@ -57,7 +57,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.history,
       page: () => const HistoryPage(),
-      transition: Transition.fade,
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: AppRoutes.profile,

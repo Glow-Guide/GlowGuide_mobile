@@ -42,6 +42,33 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Obx(() => Text(
+                      "Email: ${controller.email.value}",
+                      style: const TextStyle(fontSize: 16),
+                    )),
+                const SizedBox(height: 10),
+                Obx(() => Text(
+                      "Joined at: ${controller.createdAt.value}",
+                      style: const TextStyle(fontSize: 16),
+                    )),
+                const SizedBox(height: 10),
+                Obx(() => Text(
+                      "Birthdate: ${controller.birthdate.value}",
+                      style: const TextStyle(fontSize: 16),
+                    )),
+                const SizedBox(height: 10),
+                Obx(() => Text(
+                      "Gender: ${controller.gender.value}",
+                      style: const TextStyle(fontSize: 16),
+                    )),
+              ],
+            ),
+          ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),

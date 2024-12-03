@@ -10,7 +10,7 @@ class WavyAppbar extends StatelessWidget implements PreferredSizeWidget {
     return ClipPath(
       clipper: WaveClipperTwo(),
       child: Container(
-        height: 80,
+        height: 100,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [

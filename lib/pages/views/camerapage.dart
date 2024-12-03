@@ -80,24 +80,20 @@ class CameraPageState extends State<CameraPage> {
         children: [
          const  Expanded(
             child: Center(
-              child:  Text('Tap the camera button to take a picture'),
+              child:  Text('Tap the camera button to take a picture, Please Allow GlowGuide to Access Device Camera', textAlign: TextAlign.center),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              FloatingActionButton(
-                onPressed: _takePicture,
-                child: const Icon(Icons.camera_alt),
+         
+              Container(
+                width: double.infinity,
+                child: FloatingActionButton(
+                  
+                  onPressed: _takePicture,
+                  child: const Icon(Icons.camera_alt),
+                ),
               ),
-              FloatingActionButton(
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/home');
-                },
-                child: const Icon(Icons.cancel),
-              ),
-            ],
-          ),
+            
+          
           const SizedBox(height: 16), // Add some space at the bottom
         ],
       ),
