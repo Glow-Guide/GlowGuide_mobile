@@ -35,26 +35,44 @@ class FaceAnalysisPage extends StatelessWidget {
               'Face Diagnosis',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
+            Text(
+              'Prediction: ${controller.predictionLabel.value}',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Text(
+              'Confidence: ${(double.parse(controller.predictionConfidence.value) * 100).toStringAsFixed(0)}%',
+              style: const TextStyle(
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 10),
             Obx(() {
               return controller.predictionLabel.isEmpty
                   ? const CircularProgressIndicator() // Show loading spinner while fetching results
-                  : Column(
-                      children: [
-                        Text(
-                          'Prediction: ${controller.predictionLabel.value}',
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                          ),
+                  : Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 20),
+                            ExpansionTile(
+                              title: const Text(
+                                'Extracted Features',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              children: controller.predictionFeatures.entries
+                                  .map((entry) {
+                                return ListTile(
+                                  title: Text('${entry.key}: ${entry.value}'),
+                                );
+                              }).toList(),
+                            ),
+                          ],
                         ),
-                        Text(
-                          'Confidence: ${(double.parse(controller.predictionConfidence.value) * 100).toStringAsFixed(0)}%',
-                          style: const TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
+                      ),
                     );
             }),
           ],
