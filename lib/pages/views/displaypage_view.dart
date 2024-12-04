@@ -11,7 +11,7 @@ class DisplayPicturePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(DisplayPictureController(imagePath: imagePath));
+    final controller = Get.put(DisplayPictureController(imagePath: imagePath), tag: imagePath);
 
     return Scaffold(
       appBar: AppBar(
