@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:prototpye_glowguide/models/usermodel.dart';
+
 
 class RegisterController extends GetxController {
   final TextEditingController usernameController = TextEditingController();
@@ -68,15 +70,18 @@ class RegisterController extends GetxController {
         throw Exception('Registration failed');
       }
 
+      // Create a User object
+      final user = UserModel(
+        id: response.user!.id,
+        email: emailController.text,
+        username: usernameController.text,
+        gender: selectedGender.value,
+        birthdate: birthDateController.text,
+        createdAt: DateTime.now().toIso8601String(),
+      );
+
       // Save additional user information to Supabase
-      final userId = response.user!.id;
-      await Supabase.instance.client.from('users').insert({
-        'id': userId,
-        'email': emailController.text,
-        'username': usernameController.text,
-        'gender': selectedGender.value,
-        'birth_date': birthDateController.text,
-      });
+      await Supabase.instance.client.from('users').insert(user.toJson());
 
       // Show success animation
       showSuccessAnimation();

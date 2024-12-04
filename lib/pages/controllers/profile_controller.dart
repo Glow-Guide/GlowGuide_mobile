@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:prototpye_glowguide/models/usermodel.dart';
 
 class ProfileController extends GetxController {
-  var username = 'User'.obs;
-  var email = ''.obs;
-  var createdAt = ''.obs;
-  var birthdate = ''.obs;
-  var gender = ''.obs;
+  var user = UserModel(
+    id: '',
+    username: 'User',
+    email: '',
+    createdAt: '',
+    birthdate: '',
+    gender: '',
+  ).obs;
 
   @override
   void onInit() {
@@ -17,26 +21,19 @@ class ProfileController extends GetxController {
 
   // Fetch profile data from Supabase
   void fetchProfileData() async {
-    final user = Supabase.instance.client.auth.currentUser;
+    final currentUser = Supabase.instance.client.auth.currentUser;
 
-    if (user != null) {
+    if (currentUser != null) {
       try {
-        // Fetch username, email, and created_at from Supabase Auth
-        username.value = user.userMetadata?['username'] ?? 'User';
-        email.value = user.email ?? '';
-        createdAt.value =
-            user.createdAt != null ? user.createdAt.toString() : '';
-
         // Fetch additional user info (birthdate, gender) from your custom users table
         final response = await Supabase.instance.client
             .from('users') // assuming you have a 'users' table
-            .select('birth_date, gender')
-            .eq('id', user.id) // Use the user id to fetch their data
+            .select('id, username, email, created_at, birth_date, gender')
+            .eq('id', currentUser.id) // Use the user id to fetch their data
             .single(); // Fetch a single row
 
-        // Directly update birthdate and gender values if data is available
-        birthdate.value = response['birth_date'] ?? '';
-        gender.value = response['gender'] ?? '';
+        // Update the user object
+        user.value = UserModel.fromJson(response);
       } catch (e) {
         print(e);
         // Catch any error that occurs during the fetch operation
