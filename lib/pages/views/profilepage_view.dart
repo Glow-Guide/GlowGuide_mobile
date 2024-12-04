@@ -30,7 +30,7 @@ class ProfilePage extends StatelessWidget {
                     backgroundImage: AssetImage('lib/assets/splash.png'),
                   ),
                   Obx(() => Text(
-                        "Hello, ${controller.username.value}",
+                        "Hello, ${controller.user.value.username}",
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       )),
@@ -48,22 +48,22 @@ class ProfilePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Obx(() => Text(
-                      "Email: ${controller.email.value}",
+                      "Email: ${controller.user.value.email}",
                       style: const TextStyle(fontSize: 16),
                     )),
                 const SizedBox(height: 10),
                 Obx(() => Text(
-                      "Joined at: ${controller.createdAt.value}",
+                      "Joined at: ${controller.user.value.createdAt}",
                       style: const TextStyle(fontSize: 16),
                     )),
                 const SizedBox(height: 10),
                 Obx(() => Text(
-                      "Birthdate: ${controller.birthdate.value}",
+                      "Birthdate: ${controller.user.value.birthdate}",
                       style: const TextStyle(fontSize: 16),
                     )),
                 const SizedBox(height: 10),
                 Obx(() => Text(
-                      "Gender: ${controller.gender.value}",
+                      "Gender: ${controller.user.value.gender}",
                       style: const TextStyle(fontSize: 16),
                     )),
               ],

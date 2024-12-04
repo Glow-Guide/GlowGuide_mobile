@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Obx(
                 () => Text(
-                  'Hello, ${homeController.username.value}! Welcome to GlowGuide',
+                  'Hello, ${homeController.user.value?.username}! Welcome to GlowGuide',
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
