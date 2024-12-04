@@ -49,7 +49,7 @@ class FaceAnalysisPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Confidence: ${controller.predictionConfidence.value}%',
+                          'Confidence: ${(double.parse(controller.predictionConfidence.value) * 100).toStringAsFixed(0)}%',
                           style: const TextStyle(
                             fontSize: 18,
                           ),

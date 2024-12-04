@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:prototpye_glowguide/pages/views/displaypage_view.dart';
 import 'package:prototpye_glowguide/widgets/wavyappbar.dart';
 import 'package:prototpye_glowguide/widgets/custom_navbar.dart';
+
 // A screen that allows users to take a picture using a given camera.
 class CameraPage extends StatefulWidget {
   CameraPage({super.key});
@@ -53,9 +54,30 @@ class CameraPageState extends State<CameraPage> {
 
   Future<void> _takePicture() async {
     try {
-      final XFile? image = await _picker.pickImage(source: ImageSource.camera,
-      preferredCameraDevice: CameraDevice.front,
-      imageQuality: 20
+      final XFile? image = await _picker.pickImage(
+        source: ImageSource.camera,
+        preferredCameraDevice: CameraDevice.front,
+        imageQuality: 20,
+      );
+      if (image != null && mounted) {
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => DisplayPicturePage(
+              imagePath: image.path,
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> _pickImageFromGallery() async {
+    try {
+      final XFile? image = await _picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 20,
       );
       if (image != null && mounted) {
         await Navigator.of(context).push(
@@ -74,26 +96,31 @@ class CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:WavyAppbar(),
-      bottomNavigationBar:CustomNavbar(currentIndex: 2) ,
+      appBar: WavyAppbar(),
+      bottomNavigationBar: CustomNavbar(currentIndex: 2),
       body: Column(
         children: [
-         const  Expanded(
+          const Expanded(
             child: Center(
-              child:  Text('Tap the camera button to take a picture, Please Allow GlowGuide to Access Device Camera', textAlign: TextAlign.center),
+              child: Text(
+                'Tap the camera button to take a picture, Please Allow GlowGuide to Access Device Camera',
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
-         
-              Container(
-                width: double.infinity,
-                child: FloatingActionButton(
-                  
-                  onPressed: _takePicture,
-                  child: const Icon(Icons.camera_alt),
-                ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              FloatingActionButton(
+                onPressed: _takePicture,
+                child: const Icon(Icons.camera_alt),
               ),
-            
-          
+              FloatingActionButton(
+                onPressed: _pickImageFromGallery,
+                child: const Icon(Icons.photo_library),
+              ),
+            ],
+          ),
           const SizedBox(height: 16), // Add some space at the bottom
         ],
       ),
