@@ -63,14 +63,41 @@ class ProfilePage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               // About Section
-              _buildStaticCard(
-                label: "About",
-                value: const Text(
-                  "Acne Detection App is a modern solution that utilizes technology to help users "
-                  "diagnose and understand their acne type. With advanced features, this app provides recommendations "
-                  "the best treatment according to your skin needs.",
-                  textAlign: TextAlign.justify,
-                ),
+              const ExpansionTile(
+                title: Text('About'),
+                subtitle: Text(''),
+                children: <Widget>[
+                  ListTile(
+                      title: Text(
+                          "Acne Detection App is a modern solution that utilizes technology to help users "
+                          "diagnose and understand their acne type. With advanced features, this app provides recommendations "
+                          "the best treatment according to your skin needs.")),
+                ],
+              ),
+              // privacy policy
+              const ExpansionTile(
+                title: Text('Privacy Policy '),
+                subtitle: Text(''),
+                children: <Widget>[
+                  ListTile(
+                    title: Text('Personal Information: '),
+                    subtitle: Text(
+                        'Your name, email address, phone number, and other details provided when registering or using the app.'),
+                    trailing: Text(''),
+                  ),
+                  ListTile(
+                    title: Text(' Usage Data: '),
+                    subtitle: Text(
+                        'Information about how you interact with our application, such as pages viewed and actions taken'),
+                    trailing: Text(''),
+                  ),
+                  ListTile(
+                    title: Text(' Device Information '),
+                    subtitle:
+                        Text('Device type, operating system, and app version.'),
+                    trailing: Text(''),
+                  ),
+                ],
               ),
               const SizedBox(height: 30),
               // Sign Out Button
@@ -163,7 +190,10 @@ class ProfilePage extends StatelessWidget {
                 color: Colors.grey,
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(
+              height: 10,
+              width: double.maxFinite,
+            ),
             value,
           ],
         ),
