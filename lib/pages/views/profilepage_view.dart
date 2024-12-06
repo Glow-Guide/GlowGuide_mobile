@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/profile_controller.dart';
-import 'package:prototpye_glowguide/widgets/wavyappbar.dart';
 import 'package:prototpye_glowguide/widgets/custom_navbar.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
+
+  // Define colors for consistent theme
+  static const Color backgroundColor = Color.fromRGBO(219, 205, 197, 0.74);
+  static const Color accentColor = Color.fromRGBO(91, 56, 12, 0.74);
+  static const Color textColor = Colors.black;
 
   @override
   Widget build(BuildContext context) {
@@ -13,87 +17,156 @@ class ProfilePage extends StatelessWidget {
     final controller = Get.find<ProfileController>();
 
     return Scaffold(
-      appBar: WavyAppbar(),
+      backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: accentColor,
+        title: const Text("Profile", style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+      ),
       bottomNavigationBar: const CustomNavbar(currentIndex: 3),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Container(
-              color: const Color.fromRGBO(219, 205, 197, 0.74),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 50,
-                    backgroundImage: AssetImage('lib/assets/splash.png'),
-                  ),
-                  Obx(() => Text(
-                        "Hello, ${controller.username.value}",
-                        style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      )),
-                  IconButton(
-                    onPressed: controller.editProfile,
-                    icon: const Icon(Icons.edit),
-                  )
-                ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Profile Image Section
+              const CircleAvatar(
+                radius: 60,
+                backgroundImage: AssetImage('lib/assets/splash.jpeg'),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Obx(() => Text(
-                      "Email: ${controller.email.value}",
-                      style: const TextStyle(fontSize: 16),
-                    )),
-                const SizedBox(height: 10),
-                Obx(() => Text(
-                      "Joined at: ${controller.createdAt.value}",
-                      style: const TextStyle(fontSize: 16),
-                    )),
-                const SizedBox(height: 10),
-                Obx(() => Text(
-                      "Birthdate: ${controller.birthdate.value}",
-                      style: const TextStyle(fontSize: 16),
-                    )),
-                const SizedBox(height: 10),
-                Obx(() => Text(
-                      "Gender: ${controller.gender.value}",
-                      style: const TextStyle(fontSize: 16),
-                    )),
-              ],
-            ),
-          ),
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: controller.signOut,
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  backgroundColor: const Color.fromRGBO(91, 56, 12, 0.74),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+              const SizedBox(height: 20),
+              // Profile Info Section
+              _buildEditableCard(
+                label: "Your Name",
+                value: Obx(() => Text(controller.username.value)),
+                onEdit: controller.editProfile,
+              ),
+              const SizedBox(height: 10),
+              _buildEditableCard(
+                label: "Email",
+                value: Obx(() => Text(controller.email.value)),
+                onEdit: controller.editProfile,
+              ),
+
+              const SizedBox(height: 20),
+              // Additional Data Section
+              _buildStaticCard(
+                label: "Birthdate",
+                value: Obx(() => Text(controller.birthdate.value)),
+              ),
+              const SizedBox(height: 10),
+              _buildStaticCard(
+                label: "Gender",
+                value: Obx(() => Text(controller.gender.value)),
+              ),
+              const SizedBox(height: 20),
+              // About Section
+              _buildStaticCard(
+                label: "About",
+                value: const Text(
+                  "Acne Detection App is a modern solution that utilizes technology to help users "
+                  "diagnose and understand their acne type. With advanced features, this app provides recommendations "
+                  "the best treatment according to your skin needs.",
+                  textAlign: TextAlign.justify,
                 ),
-                child: const Text(
-                  'Sign Out',
-                  style: TextStyle(
+              ),
+              const SizedBox(height: 30),
+              // Sign Out Button
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: controller.signOut,
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    backgroundColor: accentColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  child: const Text(
+                    'Sign Out',
+                    style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
+      ),
+    );
+  }
+
+  // Widget for editable profile cards
+  Widget _buildEditableCard({
+    required String label,
+    required Widget value,
+    required VoidCallback onEdit,
+  }) {
+    return Card(
+      elevation: 1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                value,
+              ],
+            ),
+            IconButton(
+              onPressed: onEdit,
+              icon: const Icon(Icons.edit, color: accentColor),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Widget for static information cards
+  Widget _buildStaticCard({required String label, required Widget value}) {
+    return Card(
+      elevation: 1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+              ),
+            ),
+            const SizedBox(height: 10),
+            value,
+          ],
+        ),
       ),
     );
   }
