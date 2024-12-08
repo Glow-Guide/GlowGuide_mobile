@@ -40,13 +40,13 @@ class ProfilePage extends StatelessWidget {
               // Profile Info Section
               _buildEditableCard(
                 label: "Your Name",
-                value: Obx(() => Text(controller.username.value)),
+                value: Obx(() => Text(controller.user.value.username)),
                 onEdit: controller.editProfile,
               ),
               const SizedBox(height: 10),
               _buildEditableCard(
                 label: "Email",
-                value: Obx(() => Text(controller.email.value)),
+                value: Obx(() => Text(controller.user.value.email)),
                 onEdit: controller.editProfile,
               ),
 
@@ -54,12 +54,12 @@ class ProfilePage extends StatelessWidget {
               // Additional Data Section
               _buildStaticCard(
                 label: "Birthdate",
-                value: Obx(() => Text(controller.birthdate.value)),
+                value: Obx(() => Text(controller.user.value.birthdate)),
               ),
               const SizedBox(height: 10),
               _buildStaticCard(
                 label: "Gender",
-                value: Obx(() => Text(controller.gender.value)),
+                value: Obx(() => Text(controller.user.value.gender)),
               ),
               const SizedBox(height: 20),
               // About Section

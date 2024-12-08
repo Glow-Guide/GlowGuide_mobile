@@ -58,7 +58,7 @@ class CameraPageState extends State<CameraPage> {
       final XFile? image = await _picker.pickImage(
         source: ImageSource.camera,
         preferredCameraDevice: CameraDevice.front,
-        imageQuality: 20,
+        imageQuality: 50,
       );
       if (image != null && mounted) {
         await Navigator.of(context).push(
@@ -78,7 +78,7 @@ class CameraPageState extends State<CameraPage> {
     try {
       final XFile? image = await _picker.pickImage(
         source: ImageSource.gallery,
-        imageQuality: 20,
+        imageQuality: 50,
       );
       if (image != null && mounted) {
         await Navigator.of(context).push(
@@ -102,14 +102,14 @@ class CameraPageState extends State<CameraPage> {
       'lib/assets/take_picture.png',
       'Take a picture from camera',
     ],
-    ['lib/assets/upload_icon.png', 'Take a picture from galery'],
-    ['lib/assets/scan_face.png', 'scan face and focus on acne ']
+    ['lib/assets/upload_icon.png', ' Or pick a picture from galery'],
+    ['lib/assets/scan_face.png', 'Get Predictions and treatment recommendation']
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: WavyAppbar(),
-      bottomNavigationBar: CustomNavbar(currentIndex: 2),
+      bottomNavigationBar: const CustomNavbar(currentIndex: 2),
       backgroundColor: Colors.black,
       body: Column(
         children: [
@@ -127,14 +127,14 @@ class CameraPageState extends State<CameraPage> {
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10), color: Colors.white),
-            padding: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(bottom: 16),
             child: Column(
               children: [
                 CarouselSlider(
                     carouselController: _controller,
                     items: list
                         .map((item) => Container(
-                              padding: EdgeInsets.only(top: 16),
+                              padding: const EdgeInsets.only(top: 16),
                               child: Column(
                                 children: [
                                   Image.asset(
@@ -146,7 +146,7 @@ class CameraPageState extends State<CameraPage> {
                                     padding: const EdgeInsets.all(20.0),
                                     child: Text(
                                       item[1].toString(),
-                                      style: TextStyle(fontSize: 16),
+                                      style: const TextStyle(fontSize: 16),
                                     ),
                                   ),
                                 ],
@@ -169,7 +169,7 @@ class CameraPageState extends State<CameraPage> {
                       child: Container(
                         width: 12.0,
                         height: 12.0,
-                        margin: EdgeInsets.symmetric(
+                        margin: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 4.0),
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -187,12 +187,14 @@ class CameraPageState extends State<CameraPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     FloatingActionButton(
+                      backgroundColor: const Color.fromRGBO(91, 56, 12, 0.74),
                       onPressed: _takePicture,
-                      child: const Icon(Icons.camera_alt),
+                      child: const Icon(Icons.camera_alt, color: Colors.white,),
                     ),
                     FloatingActionButton(
+                      backgroundColor: const Color.fromRGBO(91, 56, 12, 0.74),
                       onPressed: _pickImageFromGallery,
-                      child: const Icon(Icons.photo_library),
+                      child: const Icon(Icons.photo_library, color: Colors.white),
                     ),
                   ],
                 ),

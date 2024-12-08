@@ -21,7 +21,7 @@ class DisplayPictureController extends GetxController {
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Crop Image',
-          toolbarColor: Colors.deepOrange,
+          toolbarColor:  const Color.fromRGBO(161, 140, 90, 1.0),
           toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: false,
