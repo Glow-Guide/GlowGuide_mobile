@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prototpye_glowguide/pages/views/displaypage_view.dart';
-import 'package:prototpye_glowguide/widgets/wavyappbar.dart';
 import 'package:prototpye_glowguide/widgets/custom_navbar.dart';
 
 // A screen that allows users to take a picture using a given camera.
@@ -19,10 +18,6 @@ class CameraPageState extends State<CameraPage> {
   @override
   void initState() {
     super.initState();
-    // Show the instruction dialog when the page is loaded.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _showInstructionDialog();
-    });
   }
 
   Future<void> _showInstructionDialog() async {
@@ -31,12 +26,22 @@ class CameraPageState extends State<CameraPage> {
       barrierDismissible: false, // User must tap a button to dismiss the dialog
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Face the Camera'),
+          title: const Text('Tips for Accurate Acne Detection'),
           content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Please make sure your face is clearly visible.'),
-                Text('Tap "OK" when you are ready to take the photo.'),
+                Text(
+                    "1. Take the picture in a well-lit environment, preferably with natural or indoor lighting. Poor lighting can affect the prediction accuracy."),
+                Text(
+                    "2. Avoid using flash as it can create glare or uneven lighting, which may interfere with the detection."),
+                Text(
+                    "3. Ensure the camera is steady and focused on the face to capture a clear image."),
+                Text(
+                    "4. You can crop the image to focus on the face before uploading it for analysis."),
+                Text(
+                    "5. Remove any make up, and ensure the face is clean"),
+                SizedBox(height: 10),
+                Text("Press OK to take a picture"),
               ],
             ),
           ),
@@ -45,6 +50,7 @@ class CameraPageState extends State<CameraPage> {
               child: const Text('OK'),
               onPressed: () {
                 Navigator.of(context).pop();
+                _takePicture();
               },
             ),
           ],
@@ -188,13 +194,17 @@ class CameraPageState extends State<CameraPage> {
                   children: [
                     FloatingActionButton(
                       backgroundColor: const Color.fromRGBO(91, 56, 12, 0.74),
-                      onPressed: _takePicture,
-                      child: const Icon(Icons.camera_alt, color: Colors.white,),
+                      onPressed: _showInstructionDialog,
+                      child: const Icon(
+                        Icons.camera_alt,
+                        color: Colors.white,
+                      ),
                     ),
                     FloatingActionButton(
                       backgroundColor: const Color.fromRGBO(91, 56, 12, 0.74),
                       onPressed: _pickImageFromGallery,
-                      child: const Icon(Icons.photo_library, color: Colors.white),
+                      child:
+                          const Icon(Icons.photo_library, color: Colors.white),
                     ),
                   ],
                 ),
