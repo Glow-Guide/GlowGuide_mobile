@@ -97,6 +97,7 @@ class ProfilePage extends StatelessWidget {
                         Text('Device type, operating system, and app version.'),
                     trailing: Text(''),
                   ),
+
                 ],
               ),
               const SizedBox(height: 30),
@@ -148,12 +149,14 @@ class ProfilePage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
                 Text(
                   label,
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.grey,
+
                   ),
                 ),
                 const SizedBox(height: 5),
