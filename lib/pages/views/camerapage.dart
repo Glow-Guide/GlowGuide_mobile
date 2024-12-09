@@ -1,7 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prototpye_glowguide/pages/views/displaypage_view.dart';
-import 'package:prototpye_glowguide/widgets/wavyappbar.dart';
 import 'package:prototpye_glowguide/widgets/custom_navbar.dart';
 
 // A screen that allows users to take a picture using a given camera.
@@ -18,10 +18,6 @@ class CameraPageState extends State<CameraPage> {
   @override
   void initState() {
     super.initState();
-    // Show the instruction dialog when the page is loaded.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _showInstructionDialog();
-    });
   }
 
   Future<void> _showInstructionDialog() async {
@@ -30,12 +26,22 @@ class CameraPageState extends State<CameraPage> {
       barrierDismissible: false, // User must tap a button to dismiss the dialog
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Face the Camera'),
+          title: const Text('Tips for Accurate Acne Detection'),
           content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Please make sure your face is clearly visible.'),
-                Text('Tap "OK" when you are ready to take the photo.'),
+                Text(
+                    "1. Take the picture in a well-lit environment, preferably with natural or indoor lighting. Poor lighting can affect the prediction accuracy."),
+                Text(
+                    "2. Avoid using flash as it can create glare or uneven lighting, which may interfere with the detection."),
+                Text(
+                    "3. Ensure the camera is steady and focused on the face to capture a clear image."),
+                Text(
+                    "4. You can crop the image to focus on the face before uploading it for analysis."),
+                Text(
+                    "5. Remove any make up, and ensure the face is clean"),
+                SizedBox(height: 10),
+                Text("Press OK to take a picture"),
               ],
             ),
           ),
@@ -44,6 +50,7 @@ class CameraPageState extends State<CameraPage> {
               child: const Text('OK'),
               onPressed: () {
                 Navigator.of(context).pop();
+                _takePicture();
               },
             ),
           ],
@@ -57,7 +64,7 @@ class CameraPageState extends State<CameraPage> {
       final XFile? image = await _picker.pickImage(
         source: ImageSource.camera,
         preferredCameraDevice: CameraDevice.front,
-        imageQuality: 20,
+        imageQuality: 50,
       );
       if (image != null && mounted) {
         await Navigator.of(context).push(
@@ -77,7 +84,7 @@ class CameraPageState extends State<CameraPage> {
     try {
       final XFile? image = await _picker.pickImage(
         source: ImageSource.gallery,
-        imageQuality: 20,
+        imageQuality: 50,
       );
       if (image != null && mounted) {
         await Navigator.of(context).push(
@@ -93,34 +100,118 @@ class CameraPageState extends State<CameraPage> {
     }
   }
 
+  int _current = 0;
+  final CarouselSliderController _controller = CarouselSliderController();
+
+  List list = [
+    [
+      'lib/assets/take_picture.png',
+      'Take a picture from camera',
+    ],
+    ['lib/assets/upload_icon.png', ' Or pick a picture from galery'],
+    ['lib/assets/scan_face.png', 'Get Predictions and treatment recommendation']
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WavyAppbar(),
-      bottomNavigationBar: CustomNavbar(currentIndex: 2),
+      // appBar: WavyAppbar(),
+      bottomNavigationBar: const CustomNavbar(currentIndex: 2),
+      backgroundColor: Colors.black,
       body: Column(
         children: [
-          const Expanded(
-            child: Center(
-              child: Text(
-                'Tap the camera button to take a picture, Please Allow GlowGuide to Access Device Camera',
-                textAlign: TextAlign.center,
+          Expanded(
+              child: SizedBox(
+            height: double.maxFinite,
+            width: double.maxFinite,
+            child: ClipRRect(
+              child: Image.asset(
+                'lib/assets/lema.jpg',
+                fit: BoxFit.cover,
               ),
             ),
+          )),
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.white),
+            padding: const EdgeInsets.only(bottom: 16),
+            child: Column(
+              children: [
+                CarouselSlider(
+                    carouselController: _controller,
+                    items: list
+                        .map((item) => Container(
+                              padding: const EdgeInsets.only(top: 16),
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    item[0],
+                                    width: 116,
+                                    height: 116,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Text(
+                                      item[1].toString(),
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ))
+                        .toList(),
+                    options: CarouselOptions(
+                        autoPlay: true,
+                        enlargeCenterPage: true,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            _current = index;
+                          });
+                        })),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: list.asMap().entries.map((entry) {
+                    return GestureDetector(
+                      onTap: () => _controller.animateToPage(entry.key),
+                      child: Container(
+                        width: 12.0,
+                        height: 12.0,
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 4.0),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color:
+                                (Theme.of(context).brightness == Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black)
+                                    .withOpacity(
+                                        _current == entry.key ? 0.9 : 0.4)),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    FloatingActionButton(
+                      backgroundColor: const Color.fromRGBO(91, 56, 12, 0.74),
+                      onPressed: _showInstructionDialog,
+                      child: const Icon(
+                        Icons.camera_alt,
+                        color: Colors.white,
+                      ),
+                    ),
+                    FloatingActionButton(
+                      backgroundColor: const Color.fromRGBO(91, 56, 12, 0.74),
+                      onPressed: _pickImageFromGallery,
+                      child:
+                          const Icon(Icons.photo_library, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              FloatingActionButton(
-                onPressed: _takePicture,
-                child: const Icon(Icons.camera_alt),
-              ),
-              FloatingActionButton(
-                onPressed: _pickImageFromGallery,
-                child: const Icon(Icons.photo_library),
-              ),
-            ],
-          ),
+
           const SizedBox(height: 16), // Add some space at the bottom
         ],
       ),

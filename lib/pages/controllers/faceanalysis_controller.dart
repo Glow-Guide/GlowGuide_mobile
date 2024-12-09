@@ -10,6 +10,7 @@ class FaceAnalysisController extends GetxController {
   // Observable variables for prediction results
   var predictionLabel = ''.obs;
   var predictionConfidence = ''.obs;
+  var predictionFeatures = <String, dynamic>{}.obs;
 
   FaceAnalysisController({required this.imagePath});
 
@@ -50,4 +51,5 @@ class FaceAnalysisController extends GetxController {
       debugPrint('Error in prediction: $e');
     }
   }
+
 }
