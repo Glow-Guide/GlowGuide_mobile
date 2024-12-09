@@ -75,11 +75,27 @@ flutter:
     - lib/assets/smooth.jpg
     - lib/assets/product.jpg
     - lib/assets/check.json
+
+    - lib/assets/create_account.jpg
+    - lib/assets/complete_form.jpg
+    - lib/assets/take_picture.jpg
+    - lib/assets/crop_image.jpg
+    - lib/assets/save_image.jpg
+    - lib/assets/diagnosis.jpg
+    - lib/assets/recommendation.jpg
+    - lib/assets/facewash.png
+    - lib/assets/moisturizer.png
+    - lib/assets/injection.png
+    - lib/assets/mask.png
+    - lib/assets/medicine.png
+    - lib/assets/pore.png
+    - lib/assets/serum.png
+    - lib/assets/sunscreen.png
+    - lib/assets/toner.png
     - lib/assets/lema.jpg
     - lib/assets/scan_face.png
     - lib/assets/take_picture.png
     - lib/assets/upload_icon.png
-
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
