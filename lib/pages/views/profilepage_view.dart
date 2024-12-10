@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/profile_controller.dart';
 import 'package:prototpye_glowguide/widgets/custom_navbar.dart';
+import 'package:prototpye_glowguide/widgets/wavyappbar.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -18,12 +19,7 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: accentColor,
-        title: const Text("Profile", style: TextStyle(color: Colors.white)),
-        centerTitle: true,
-      ),
+      appBar:WavyAppbar(),
       bottomNavigationBar: const CustomNavbar(currentIndex: 3),
       body: SingleChildScrollView(
         child: Padding(

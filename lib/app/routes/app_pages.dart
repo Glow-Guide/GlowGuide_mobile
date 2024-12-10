@@ -46,7 +46,7 @@ class AppPages {
       name: AppRoutes.register,
       page: () => RegisterPage(),
       binding: RegisterBinding(),
-      transition: Transition.rightToLeft,
+      transition: Transition.fade,
     ),
     GetPage(
       name: AppRoutes.home,
@@ -57,7 +57,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.history,
       page: () => const HistoryPage(),
-      transition: Transition.rightToLeft,
+      transition: Transition.fade,
     ),
     GetPage(
       name: AppRoutes.profile,
