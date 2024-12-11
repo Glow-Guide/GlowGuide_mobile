@@ -11,7 +11,7 @@ class FaceAnalysisController extends GetxController {
   // Observable variables for prediction results
   var predictionLabel = ''.obs;
   var predictionConfidence = ''.obs;
-  var predictionFeatures = <String, dynamic>{}.obs;
+  // var predictionFeatures = <String, dynamic>{}.obs;
 
   FaceAnalysisController({required this.imagePath});
 
@@ -112,6 +112,14 @@ Future<void> saveAnalysisResult() async {
       predictionConfidence.value,
     );
 
+    // Delete the image file from local storage
+    final file = File(imagePath);
+    if (await file.exists()) {
+      await file.delete();
+      debugPrint('Image deleted successfully');
+    }
+
+    // Show success message and navigate to home page
     Get.snackbar(
       'Success',
       'Result saved successfully!',
@@ -119,6 +127,9 @@ Future<void> saveAnalysisResult() async {
       backgroundColor: Colors.green,
       colorText: Colors.white,
     );
+
+    // Navigate to the home page
+    Get.offAllNamed('/home');
   } catch (e) {
     Get.snackbar(
       'Save Failed',
@@ -130,6 +141,7 @@ Future<void> saveAnalysisResult() async {
     debugPrint('Error saving analysis result: $e');
   }
 }
+
 
 
 
