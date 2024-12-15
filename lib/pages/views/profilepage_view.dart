@@ -19,7 +19,7 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar:WavyAppbar(),
+      appBar: WavyAppbar(),
       bottomNavigationBar: const CustomNavbar(currentIndex: 3),
       body: SingleChildScrollView(
         child: Padding(
@@ -34,16 +34,14 @@ class ProfilePage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               // Profile Info Section
-              _buildEditableCard(
+              _buildStaticCard(
                 label: "Your Name",
                 value: Obx(() => Text(controller.user.value.username)),
-                onEdit: controller.editProfile,
               ),
               const SizedBox(height: 10),
-              _buildEditableCard(
+              _buildStaticCard(
                 label: "Email",
                 value: Obx(() => Text(controller.user.value.email)),
-                onEdit: controller.editProfile,
               ),
 
               const SizedBox(height: 20),
@@ -93,7 +91,6 @@ class ProfilePage extends StatelessWidget {
                         Text('Device type, operating system, and app version.'),
                     trailing: Text(''),
                   ),
-
                 ],
               ),
               const SizedBox(height: 30),
@@ -121,49 +118,6 @@ class ProfilePage extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  // Widget for editable profile cards
-  Widget _buildEditableCard({
-    required String label,
-    required Widget value,
-    required VoidCallback onEdit,
-  }) {
-    return Card(
-      elevation: 1,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-
-                Text(
-                  label,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-
-                  ),
-                ),
-                const SizedBox(height: 5),
-                value,
-              ],
-            ),
-            IconButton(
-              onPressed: onEdit,
-              icon: const Icon(Icons.edit, color: accentColor),
-            ),
-          ],
         ),
       ),
     );
