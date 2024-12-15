@@ -82,6 +82,7 @@ flutter:
     - lib/assets/save_image.jpg
     - lib/assets/diagnosis.jpg
     - lib/assets/recommendation.jpg
+
     - lib/assets/acne(2).jpg
     - lib/assets/factor.jpg
     - lib/assets/skincare.jpg
@@ -100,7 +101,6 @@ flutter:
     - lib/assets/scan_face.png
     - lib/assets/take_picture.png
     - lib/assets/upload_icon.png
-
 
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
