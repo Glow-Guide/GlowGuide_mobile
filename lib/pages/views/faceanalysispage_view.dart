@@ -38,7 +38,7 @@ class FaceAnalysisPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Face Analysis'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -55,22 +55,26 @@ class FaceAnalysisPage extends StatelessWidget {
             const Text(
               'Face Diagnosis',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
             Obx(() {
               if (controller.predictionLabel.value.isEmpty) {
                 return const CircularProgressIndicator(); // Show loading spinner while fetching results
               }
-
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
+                    textAlign: TextAlign.center,
                     'Prediction: ${controller.predictionLabel.value}',
                     style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w400),
+                      
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     'Confidence: ${(double.parse(controller.predictionConfidence.value) * 100).toStringAsFixed(0)}%',
-                    style: const TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 20),
                   // Treatment Recommendations Section

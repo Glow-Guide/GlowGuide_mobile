@@ -28,26 +28,29 @@ class DisplayPicturePage extends StatelessWidget {
               );
             }),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  Get.back(); // Go back to the camera page.
-                },
-                child: const Text('Retake Picture'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  await controller.cropImage(); // Crop the image before uploading.
-                },
-                child: const Text('Crop Image'),
-              ),
-              ElevatedButton(
-                onPressed: () => controller.uploadPicture(),
-                child: const Text('Save Picture'),
-              ),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Get.back(); // Go back to the camera page.
+                  },
+                  child: const Text('Retake Picture'),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    await controller.cropImage(); // Crop the image before uploading.
+                  },
+                  child: const Text('Crop Image'),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.uploadPicture(),
+                  child: const Text('Save Picture'),
+                ),
+              ],
+            ),
           ),
         ],
       ),

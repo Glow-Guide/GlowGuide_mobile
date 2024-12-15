@@ -47,12 +47,7 @@ class ProfileController extends GetxController {
       }
     }
   }
-
-  // Navigate to profile edit page
-  void editProfile() {
-    Get.toNamed('/register');
-  }
-
+  
   // Sign out the user 
   Future<void> signOut() async {
     try {

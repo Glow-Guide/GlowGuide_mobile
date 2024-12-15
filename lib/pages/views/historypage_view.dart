@@ -53,7 +53,7 @@ class HistoryPage extends StatelessWidget {
                 subtitle: Text(
                   'Confidence: ${(result['confidence'] * 100).toStringAsFixed(1)}%\n'
                   'Date: ${DateTime.parse(result['created_at']).toLocal()}',
-                  style: const TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
                 onTap: () {
                   Get.to(() => DetailPage(result: result));
