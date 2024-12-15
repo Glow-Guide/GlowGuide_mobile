@@ -59,30 +59,16 @@ class LoginPage extends StatelessWidget {
                 hintText: "Enter your password",
                 obscureText: true,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Obx(
-                    () => Row(
-                      children: [
-                        Checkbox(
-                          value: controller.rememberMe.value,
-                          onChanged: (bool? value) {
-                            controller.rememberMe.value = value ?? false;
-                          },
-                        ),
-                        const Text("Remember Me"),
-                      ],
-                    ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: TextButton(
+                  onPressed: () => Get.toNamed('/forgot'),
+                  child: const Text(
+                    "Forgot Password?",
+                    style: TextStyle(color: Colors.black),
+                    textAlign: TextAlign.left,
                   ),
-                  TextButton(
-                    onPressed: () => Get.toNamed('/forgot'),
-                    child: const Text(
-                      "Forgot Password?",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -90,9 +76,8 @@ class LoginPage extends StatelessWidget {
                   width: double.infinity,
                   child: Obx(
                     () => ElevatedButton(
-                      onPressed: controller.isLoading.value
-                          ? null
-                          : controller.login,
+                      onPressed:
+                          controller.isLoading.value ? null : controller.login,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 15),
                         backgroundColor: const Color.fromRGBO(91, 56, 12, 0.74),
@@ -102,8 +87,8 @@ class LoginPage extends StatelessWidget {
                       ),
                       child: controller.isLoading.value
                           ? const CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.white),
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
                             )
                           : const Text(
                               'Login',

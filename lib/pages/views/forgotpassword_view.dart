@@ -32,6 +32,12 @@ class ForgotPassword extends StatelessWidget {
               hintText: "Enter your email",
               obscureText: false,
             ),
+           const  SizedBox(height: 20),
+            
+            const  Padding(
+               padding:  EdgeInsets.all(8.0),
+               child: Text("This feature is not yet implemented, No email will be sent since we did not set up the SMTP email server for this project due to Supabase updated terms and conditions,Sorry for the inconveniences:(", style: TextStyle(color: Colors.red),),
+             ),
             const Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),

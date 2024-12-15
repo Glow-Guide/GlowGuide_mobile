@@ -63,9 +63,14 @@ class ProfilePage extends StatelessWidget {
                 children: <Widget>[
                   ListTile(
                       title: Text(
-                          "Acne Detection App is a modern solution that utilizes technology to help users "
-                          "diagnose and understand their acne type. With advanced features, this app provides recommendations "
-                          "the best treatment according to your skin needs.")),
+                          "GlowGuide is an acne detecting app and treatment recommendation developed by students from Politeknik Negeri Malang as a semester project\n"
+                          "Developed using flutter with GetX state management and Supabase as the backend database\n"
+                          "We used SVM machine learning model to predict the type of acne based on the image uploaded by the user\n"
+                          "Developed by:\n"
+                          "1. Brilyan Satria Wahyuda - 2241720019\n"
+                          "2. Firstia Aulia Wida Azizah - 2241720135\n"
+                          "3. Fransiscus Farrel Edric W. - 2241720032\n"
+                          "4. M. Tryo Bagus Anugerah P. - 2241720053")),
                 ],
               ),
               // privacy policy
@@ -79,16 +84,29 @@ class ProfilePage extends StatelessWidget {
                         'Your name, email address, phone number, and other details provided when registering or using the app.'),
                     trailing: Text(''),
                   ),
+             
                   ListTile(
-                    title: Text(' Usage Data: '),
+                    title: Text(' Data Security '),
                     subtitle: Text(
-                        'Information about how you interact with our application, such as pages viewed and actions taken'),
+                        'We implement security measures to protect your data, but no method of transmission over the internet or electronic storage is 100% secure.'),
                     trailing: Text(''),
                   ),
                   ListTile(
-                    title: Text(' Device Information '),
-                    subtitle:
-                        Text('Device type, operating system, and app version.'),
+                    title: Text(' Data Sharing '),
+                    subtitle: Text(
+                        'We do not share your personal information with third parties except as necessary to provide our services or as required by law.'),
+                    trailing: Text(''),
+                  ),
+                  ListTile(
+                    title: Text(' Changes to This Policy '),
+                    subtitle: Text(
+                        'We may update our privacy policy from time to time. We will notify you of any changes by posting the new policy on this page.'),
+                    trailing: Text(''),
+                  ),
+                  ListTile(
+                    title: Text(' Contact Us '),
+                    subtitle: Text(
+                        'If you have any questions about this privacy policy, please contact us at glowguide501@gmail.com.'),
                     trailing: Text(''),
                   ),
                 ],
