@@ -46,4 +46,4 @@ Your data safety is our priority. We will not share your data with third parties
 - **Brilyan Satria Wahyuda - 2241720019** Front end, Back end, Machine Learning
 - **Firstia Aulia Wida Azizah - 224172 0135** Front end, Documentation
 - **Franciscus Farrel Edric W. - 2241720032** Front end, Machine Learning
-- ** M. Tryo Bagus Anugerah P. - 2241720053** Back end, Machine Learning
+- **M. Tryo Bagus Anugerah P. - 2241720053** Back end, Machine Learning
