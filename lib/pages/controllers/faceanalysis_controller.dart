@@ -25,8 +25,7 @@ class FaceAnalysisController extends GetxController {
 
   Future<void> getPrediction() async {
     try {
-    final url = 'https://glow-guide.evenify.my.id/upload';
-
+    final url = 'https://glowguidemachine-learning-production.up.railway.app/upload';
       // Read the file to send it in the POST request
       final file = File(imagePath);
       final request = http.MultipartRequest('POST', Uri.parse(url))
